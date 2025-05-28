@@ -1,0 +1,9 @@
+requests
+beautifulsoup4
+googlesearch-python
+sentence-transformers
+faiss-cpu
+streamlit
+langchain
+langchain-groq
+torch
