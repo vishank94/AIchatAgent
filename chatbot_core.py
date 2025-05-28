@@ -61,7 +61,7 @@ chat_prompt = ChatPromptTemplate.from_messages([system_message, human_message])
 #         return ""
 
 def scrape_text_from_url(url):
-    print("scrape_text_from_url")
+    # print("scrape_text_from_url")
     try:
         response = requests.get(url, timeout=10, headers={
             "User-Agent": "Mozilla/5.0"
@@ -95,11 +95,11 @@ def scrape_text_from_url(url):
         return ""
 
 def fetch_top_webpages(query: str, desired_count=5, max_attempts=15):
-    print("fetch_top_webpages")
+    # print("fetch_top_webpages")
     try:
-        print("try")
+        # print("try")
         results = list(search(query, 5)) #num=max_attempts, stop=max_attempts, pause=2.0))
-        print("found")
+        # print("found")
         valid = []
         # logging.info(f"results: {results}")
         for url in results:
@@ -108,13 +108,13 @@ def fetch_top_webpages(query: str, desired_count=5, max_attempts=15):
                 valid.append((url, content))
             if len(valid) >= desired_count:
                 break
-        print(valid)
+        # print(valid)
         return valid
     except:
         return []
 
 def chunk_text(text, chunk_size=500):
-    print("chunk_text")
+    # print("chunk_text")
     words = text.split()
     return [' '.join(words[i:i + chunk_size]) for i in range(0, len(words), chunk_size)]
 
@@ -128,7 +128,7 @@ def create_faiss_index(embeddings):
     return index
 
 def retrieve(query, chunks, index, embedder, k=3):
-    print("hi")
+    # print("retrieve")
     q_emb = embedder.encode([query])[0]
     D, I = index.search(np.array([q_emb]).astype('float32'), k)
     return I[0]
@@ -136,7 +136,7 @@ def retrieve(query, chunks, index, embedder, k=3):
 # ------ chat agent ------
 # def chat_agent(user_input: str,) -> str:
 def chat_agent(user_input: str, embedder) -> str:
-    print("chat_agent")
+    # print("chat_agent")
     top_urls = fetch_top_webpages(user_input)
     if not top_urls:
         return "Sorry, no relevant search results found."
